@@ -1,10 +1,14 @@
+import os
 import re
 from parser import VideoSource, parse_video_id, parse_video_share_url
 
 import uvicorn
+from dotenv import load_dotenv
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+
+load_dotenv()
 
 app = FastAPI()
 

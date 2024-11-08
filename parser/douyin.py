@@ -12,7 +12,9 @@ class DouYin(BaseParser):
     """
 
     async def parse_share_url(self, share_url: str) -> VideoInfo:
-        if share_url.startswith("https://www.douyin.com/video/"):
+        if share_url.startswith("https://www.iesdouyin.com/share/video/"):
+            pass
+        elif share_url.startswith("https://www.douyin.com/video/"):
             # 支持电脑网页版链接 https://www.douyin.com/video/xxxxxx
             video_id = share_url.strip("/").split("/")[-1]
             share_url = self._get_request_url_by_video_id(video_id)

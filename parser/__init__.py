@@ -1,3 +1,7 @@
+import os
+
+import httpx
+
 from .acfun import AcFun
 from .base import VideoInfo, VideoSource
 from .doupai import DouPai
@@ -19,6 +23,19 @@ from .weishi import WeiShi
 from .xigua import XiGua
 from .xinpianchang import XinPianChang
 from .zuiyou import ZuiYou
+
+# 备份原始的 httpx.Client
+OriginalClient = httpx.AsyncClient
+
+# 创建一个新的 Client，自动添加代理
+def ProxiedClient(*args, **kwargs):
+    kwargs["proxies"] = kwargs.get("proxies", os.getenv("PROXY"))
+    return OriginalClient(*args, **kwargs)
+
+# 覆盖 httpx.Client
+httpx.AsyncClient = ProxiedClient
+
+
 
 # 视频来源与解析器的映射关系
 video_source_info_mapping = {
